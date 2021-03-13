@@ -8,9 +8,22 @@
     ],
     "require": {},
 	"autoload" : {
+<<<<<<< HEAD
 			"psr-4": {
 			"App\\" : "app/",
 			"Src\\" : "src/"
 		}
 	}
+=======
+		"psr-4": {
+		"App\\" : "app/",
+		"Src\\" : "src/",
+        "Database\\" : "database/"
+	},
+    "files" : [
+        "src/helpers/helper_routes.php"
+    ]
+
+    }
+>>>>>>> 05c1b2a74958ed8537afe0667872cab95725c04a
 }

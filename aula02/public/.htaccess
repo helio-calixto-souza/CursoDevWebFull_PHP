@@ -1,8 +1,15 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
+<<<<<<< HEAD
 RewriteBase /CursoDevWebFull_PHP/aula02/public/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([A-Za-z0-9_\\\/\-]+)$ index.php?uri=$1 [QSA,L]
 Options -Indexes
+=======
+RewriteBase /CursoDevWebFull_PHP-main/aula02/public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([A-Za-z0-9_\\\/\-]+)$ index.php?uri=$1 [QSA,L]
+>>>>>>> 05c1b2a74958ed8537afe0667872cab95725c04a
 </IfModule>
