@@ -1,11 +1,13 @@
 <?php
- 
-$router->get('/', function(){
-    echo "Página inicial";
+
+$router->get('/teste/{teste}', function($teste){
+
+	echo "Agora foi recebido da URI o parâmetro: " . $teste;
+
 });
- 
-// $router->get('/contatos', function(){
-//     echo "Página de contatos";
-// });
- 
-// $router->post('/contatos/store', "Controller@store");
+
+$router->get('teste2', function() use($router){
+	
+	echo '<a href="' . $router->translate('clientes.edit', 1) . '">Clique aqui para testar a rota clientes.edit</a>';
+	
+});
