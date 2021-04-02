@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/abrirRotaModal.js') }}" defer></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -58,6 +61,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                   
+                                    <a class="dropdown-item" href="{{ url('/') }}/contato" > 
+                                    
+                                        - Contato
+
+                                    </a>
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -73,11 +84,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-
+        </nav>              
         <main class="py-4">
             @yield('content')
         </main>
+        <span tipo="rota_modal"></span>          
     </div>
 </body>
 </html>

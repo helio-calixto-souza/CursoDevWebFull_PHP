@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Contato
+use App\Models\Contato;
 
 class ContatoController extends Controller
 {
+    
+// Inicio das funcoes WEB
     /**
      * Display a listing of the resource.
      *
@@ -14,19 +16,10 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        //
+        $contatos = Contato::all();
+        return view('contato.listar', compact('contatos'));
     }
 
-    public function showAll()
-    {
-        $contatos =  Contato::all();
-        if(empty($contatos->first())) {
-            return response()->json(['message' => '0 registros encontrados',],404);            ])
-        }
-        else {
-            return response()->json($contatos);
-        }
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,9 +27,47 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        //
+        
+        $id = '';
+        $verb = 'POST';
+        $action = '/cadastrar';
+        return view('contato.cadastrarEditar', compact('id','verb', 'action'));
     }
 
+
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $verb = 'PUT';
+        $action = '/editar/';
+        $contato = Contato::find($id);
+        return view('contato.cadastrarEditar', compact('id','verb', 'action','contato'));
+    }
+
+        /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $verb = 'DELETE';
+        $action = '/deletar/';
+        $contato = Contato::find($id);
+        return view('contato.cadastrarEditar', compact('id','verb', 'action','contato'));
+    }
+
+
+   // FIM das funcoes WEB
+
+   // Inicio das funcoes API 
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -50,9 +81,9 @@ class ContatoController extends Controller
             \DB::beginTransaction();
             $contato = new Contato;
             $contato->fill($request->all());
-            $contato->save()
+            $contato->save();
 
-            \DB::commit()
+            \DB::commit();
             return response()->json($contato,201);
 
        } catch (\PDOException $e) {
@@ -65,6 +96,18 @@ class ContatoController extends Controller
 
 
 
+    }
+
+
+    public function showAll()
+    {
+        $contatos =  Contato::all();
+        if(empty($contatos->first())) {
+            return response()->json(['message' => '0 registros encontrados'],404);
+        }
+        else {
+            return response()->json($contatos);
+        }
     }
 
     /**
@@ -82,22 +125,12 @@ class ContatoController extends Controller
             return response()-> json([ 'message'=> 'nao encontrado'],404);
         }
         else {
-            return response()->json($contato)
+            return response()->json($contato);
         }
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+   
     /**
      * Update the specified resource in storage.
      *
@@ -114,15 +147,15 @@ class ContatoController extends Controller
        }
        else {
         try {
-            DB:: betginTransaction();
+            \DB:: beginTransaction();
             $contato->fill($request->all());
             $contato->update();
 
-            \\DB::commit();
-            return response()->json($contato,201)
+            \DB::commit();
+            return response()->json($contato,201);
         } 
-        catch (\PDOException { 
-            DB::rollback();
+        catch (\PDOException $e) { 
+            \DB::rollback();
             return response()->json(['message'=>$e->getMessage()],400);
 
         }
@@ -141,7 +174,7 @@ class ContatoController extends Controller
     {
        $contato = Contato::find($id);
        if(empty($contato)) {
-        return response()->(['message'=>'Registro não encontrado'],404);
+        return response()->json(['message'=>'Registro não encontrado'],404);
 
        }
        else {
@@ -149,7 +182,7 @@ class ContatoController extends Controller
                 \DB::beginTransaction();
                 $contato->deleted_at = date('Y-m-d H:i:s');
                 $contato->save();
-                \DB::commint();
+                \DB::commit();
                 return response()->json(['message'=>'Registro Excluido'],200);
             }
             catch (\PDOException $e) {
@@ -162,6 +195,6 @@ class ContatoController extends Controller
        }
        
        
-       //
+        // FIM das funcoes API 
     }
 }
